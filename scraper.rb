@@ -17,6 +17,7 @@ QUERY
 
 wanted = EveryPolitician::Wikidata.sparql(query)
 raise 'No ids' if wanted.empty?
+wanted << 'Q119158' # Federal District
 
 data = Wikidata::Areas.new(ids: wanted).data
 ScraperWiki.save_sqlite(%i(id), data)
