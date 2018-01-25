@@ -11,13 +11,13 @@ query = <<QUERY
   SELECT DISTINCT ?item
   WHERE
   {
-    ?item wdt:P31 wd:Q485258 .
+    ?item wdt:P31/wdt:P279* wd:Q10864048 ; wdt:P17 wd:Q155 .
+    MINUS { ?item wdt:P576 [] }
   }
 QUERY
 
 wanted = EveryPolitician::Wikidata.sparql(query)
 raise 'No ids' if wanted.empty?
-wanted << 'Q119158' # Federal District
 
 data = Wikidata::Areas.new(ids: wanted).data
 ScraperWiki.save_sqlite(%i(id), data)
